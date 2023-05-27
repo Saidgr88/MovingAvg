@@ -5,83 +5,56 @@ int main()
 {
     srand(static_cast<unsigned int>(time(0)));
 
-    int size = 2;//getRandomNumber(0,128);
-    int timeScale = 1000000;
+    size_t size = 2;
+    size_t lenData = 1000000;
 
-    double **doubleTest = new double*[timeScale];//[size];
-    float **floatTest = new float*[timeScale];
+    std::vector<float> floatTest;
+    std::vector<double> doubleTest;
+
+    for (size_t i = 0; i < lenData; i++)
+    {
+        
+        doubleTest.push_back(getRandomNumber(0,100));
+        
+    }
+    
+
+    for (size_t i = 0; i < lenData; i++)
+    {
+        
+        floatTest.push_back(getRandomNumber(0,100));
+        
+    }
+    
+    unsigned int zeroTime;
+    
     while(size <= 128)
     {
-        for (size_t i = 0; i < timeScale; i++)
+        zeroTime = clock();
+        if(!movingAverage(&doubleTest[0],lenData,size))
         {
-            doubleTest[i] = new double[size];
+            std::cout << "\nTime for window " << size << " for double: " << clock() - zeroTime << " mcseconds\n";
+            
         }
-        
-        
-        for (size_t i = 0; i < timeScale; i++)
+        else
         {
-            floatTest[i] = new float[size];
+            std::cout << "Window size error\n";
         }
-        
-
-
-        for(int a = 0; a < timeScale; a++)
-        {
-            // std::cout << "Time: " << a << '\n';
-            for (size_t i = 0; i < size; i++)
-            {
-                doubleTest[a][i] = getRandomNumber(0.0,100000);
-                // std::cout << doubleTest[a][i];
-                // if(i % 16 == 0)
-                //     std::cout << '\n';
-                // else
-                //     std::cout << ' ';
-            }
-            // std::cout << '\n';
-        }
-        
-        std::cout << "\nAveraged\n";
-
-        unsigned int zeroTime = clock();
-        double afterAvg[timeScale];
-        for (size_t i = 0; i < timeScale; i++)
-        {
-            afterAvg[i] = movingAverage(doubleTest[i],size);
-            // std::cout << "Time " << i << ": " << afterAvg[i];
-            // if(i != 0 && (i+1) % 4 == 0)
-            //     std::cout << '\n';
-            // else
-            //     std::cout << ' ';
-        }
-        
-        std::cout << "\nTime for window " << size << " for double: " << clock() - zeroTime << " mseconds\n";
 
         zeroTime = clock();
-
-        for (size_t i = 0; i < timeScale; i++)
+        if(!movingAverage(&floatTest[0],lenData,size))
         {
-            afterAvg[i] = movingAverage(floatTest[i],size);
+            std::cout << "\nTime for window " << size << " for float: " << clock() - zeroTime << " mcseconds\n";
+            
         }
-        
-        std::cout << "\nTime for window " << size << " for float: " << clock() - zeroTime << " mseconds\n";
-        
-        for (size_t i = 0; i < timeScale; i++)
+        else
         {
-            delete[] doubleTest[i];
+            std::cout << "Window size error'\n";
         }
-        
-
-        for (size_t i = 0; i < timeScale; i++)
-        {
-            delete[] floatTest[i];
-        }
-        
 
         size *= 2;
     }
-    delete[] floatTest;
-    delete[] doubleTest;
-
+    
     return 0;
 }
 
