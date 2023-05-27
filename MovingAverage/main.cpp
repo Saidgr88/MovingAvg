@@ -55,6 +55,9 @@ int main()
         size *= 2;
     }
     
+    doubleTest.erase(doubleTest.begin(),doubleTest.begin()+size/2);
+    floatTest.erase(floatTest.begin(),floatTest.begin()+size/2);
+    
     return 0;
 }
 
