@@ -1,5 +1,5 @@
 #include "movingAvg.h"
-
+#include <vector>
 
 int main()
 {
