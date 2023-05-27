@@ -1,6 +1,6 @@
 #include "movingAvg.h"
 
-double movingAverage(double *values, int size)
+double average(double *values, int size)
 {
     double temp = 0;
     for(int i = 0; i<size;++i)
@@ -11,7 +11,7 @@ double movingAverage(double *values, int size)
     return temp/size;
 }
 
-float movingAverage(float *values, int size)
+float average(float *values, int size)
 {
     float temp = 0;
     for(int i = 0; i<size;++i)
