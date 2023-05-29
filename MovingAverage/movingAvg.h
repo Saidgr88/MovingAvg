@@ -27,5 +27,11 @@ int movingAverage(std::vector<T> &inData, std::vector<T> &outData, size_t window
     return 0;
 }
 
+double getRandomNumber(int min, int max)
+{
+    static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0); 
+    
+    return (rand() * fraction * (max - min + 1) + min);
+}
 
 #endif
